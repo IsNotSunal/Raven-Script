@@ -14,24 +14,22 @@ void onEnable(){
     yawmodfier = 1;
 }
 
-void onPreUpdate(){
-    Entity player = client.getPlayer();
-    airticks = player.onGround() ? 0 : airticks + 1;
-}
 
 void onPreMotion(PlayerState state){
+    Entity player = client.getPlayer();
+    airticks = player.onGround() ? 0 : airticks + 1;
     if(isLobby() && modules.getButton(scriptName , "Lobby Check")){
         return;
-    }
+    }   
     
-    Entity player = client.getPlayer();
     if(player.onGround() && jump){
         jump = false;
         disabled = true;
         client.jump();
     }else if (disabled && airticks > 9){
         if (airticks % 2 == 0){
-            state.z += 0.095;
+            Random rand = new Random();
+            state.z += 0.095 + rand.nextFloat() / 10;
             state.yaw += yawmodfier;
         }
     }
@@ -76,7 +74,7 @@ boolean onPacketReceived(SPacket packet) {
             flag++;
             yawmodfier = -yawmodfier;
             client.print("flag");
-            if (flag > 15) {
+            if (flag > 20) {
                 disabled = false;
                 flag = 0;
                 client.print("Disable Motion Check Completed!");
