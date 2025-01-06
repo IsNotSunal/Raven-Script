@@ -8,7 +8,7 @@ void onRenderTick(float partialTicks) {
         return;
     }
     animated = lerp(animated, 50, 0.05);
-    client.render.text("TESTY",(float) animated, 15, 1, new Color(255 , 255 , 255).getRGB(), true);
+    render.text2d("TESTY",(float) animated, 15, 1, new Color(255 , 255 , 255).getRGB(), true);
 }
 
 void onEnable(){
